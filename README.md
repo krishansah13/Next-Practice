@@ -19,8 +19,16 @@
 
 ![alt text](images/image.png)[this is the expected new Website]
 ---
-### Two Different Approaches for building Next JS
--> App Router / Page Router 
+## Two Different Approaches for building Next JS
+
+### -> App Router / Page Router
+- Pages Router is old way of using routing techniques and is a very stable way
+- With Page Router, we build feature rich full stack apps with React
+- App Router is new way as it was introduced in React13
+- App Router is marked as stable, but still is relatively new and partially buggy.
+- App Router supports modern Next and React features, and is said to be the future of NextJS  
+
+---
 
 - By Default : App Router
 - NextJS will configure routes from `app/` folder
