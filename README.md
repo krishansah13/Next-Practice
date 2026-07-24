@@ -17,7 +17,7 @@
     `npx create-next-app@latest`
 - navigate to the project you just made, and to start the project use `npm run dev`
 
-![alt text](image.png)[this is the expected new Website]
+![alt text](images/image.png)[this is the expected new Website]
 ---
 ### Two Different Approaches for building Next JS
 -> App Router / Page Router 
