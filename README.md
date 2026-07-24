@@ -21,3 +21,7 @@
 ---
 ### Two Different Approaches for building Next JS
 -> App Router / Page Router 
+
+- By Default : App Router
+- NextJS will configure routes from `app/` folder
+- to create a new route, just create a new folder under the `app/` folder say for now it is 'hello', and inside that you have to create `page.js`, so that the folder structure looks like `...app/hello/page.js`. Then you can go to the browser and type `http:localhost:3000/hello` to see your new route which works perfectly accordingly to the react code written in `page.js`
