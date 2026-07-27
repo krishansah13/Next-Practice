@@ -67,3 +67,26 @@ export default function Home() {
 This will show you a paragraph, which when clicked will lead you to `http://localhost:3000/awesome` without refreshing the page, and thus maintaining `SPA`
 
 ---
+
+### Layout 
+- Layout is the wrapper in which all the pages are enclosed. 
+- One Layout is necessary in which all the children will be dispayed.
+- Independent routes can have their own layout.
+- In layout, you pass the html code like 
+
+```
+export default function RootLayout({children}) {
+    <html lang = "en">
+        <body>{children}</body>
+    </html>
+}
+```
+Notice that `<head>` is not there, but if we want to share some metadata, we can do it by using 
+
+```
+export const metadata = {
+    title : "Next JS Application", 
+    description : "Our First Next App"
+}
+```
+metadata here is a reserved keyword and it takes an object as input.
