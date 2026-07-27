@@ -107,3 +107,16 @@ notice we are using `@` here, which denotes the home directory (by default confi
 
 ---
 
+
+### Reserved Filenames
+
+These filenames are only reserved when creating them inside of the app/ folder (or any subfolder). Outside of the app/ folder, these filenames are not treated in any special way.
+
+- `page.tsx` : Creating a new page (e.g., `app/about/page.tsx`)
+- `layout.tsx` : Creating a new layout that wraps sibling and nested page
+- `not-found.tsx` : Fallback page for "Not Found errors"
+- `error.tsx` : Fallback page for other errors
+- `loading.tsx` : Fallback page which is shown whilst sibling or nested pages are fetching data
+- `route.tsx` : Allows you to create an API route (i.e., a page which does NOT return JSX code but instead data, e.g., in the JSON format)
+
+---
