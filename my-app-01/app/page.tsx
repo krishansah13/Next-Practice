@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Link from 'next/link'
 
 export default function Home() {
   return (
@@ -8,10 +8,10 @@ export default function Home() {
         I am configuring a code written in NextJS
       </p>
       <p>
-        <a href="/awesome">
+        <Link href="/awesome">
           Click Me to Navigate to /awesome
-        </a>
-      </p>
+        </Link>
+      </p> 
     </div>
   );
 }
