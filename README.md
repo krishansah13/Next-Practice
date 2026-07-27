@@ -46,3 +46,24 @@ Step 02: Make a `page.js` file inside the folder
 
 Step 03: Write the desired output of the `/about` route in page.js
 
+
+### Navigation 
+- For Navigation, you can always use `<a></a>` tags, but it is not preferrable as it breaks the purpose of `SPA` by refreshing and loading a whole new page. 
+
+- To solve this, we can use Link tag provided by "next/Link"
+
+```
+import Link from 'next/Link'
+
+export default function Home() {
+    <p>
+        <Link href = "/awesome"> 
+            Click me to go to Awesome 
+        </Link>
+    </p>
+}
+```
+
+This will show you a paragraph, which when clicked will lead you to `http://localhost:3000/awesome` without refreshing the page, and thus maintaining `SPA`
+
+---
