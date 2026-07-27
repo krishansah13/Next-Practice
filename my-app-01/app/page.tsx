@@ -1,17 +1,17 @@
 import Link from 'next/link'
 
+import Header from "@/components/header"
+
 export default function Home() {
   return (
     <div className="text-center">
-      <h1 className="px-5 py-2 text-5xl font-bold h-full mt-[40vh] ">Hey There! </h1>
+      <Header/>
       <p className="text-2xl">
         I am configuring a code written in NextJS
       </p>
-      <p>
-        <Link href="/awesome">
-          Click Me to Navigate to /awesome
-        </Link>
-      </p> 
+      <Link href="/awesome">
+        Click Me to Navigate to /awesome
+      </Link>
     </div>
   );
 }
