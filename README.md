@@ -18,6 +18,7 @@
 - navigate to the project you just made, and to start the project use `npm run dev`
 
 ![alt text](images/image.png)[this is the expected new Website]
+
 ---
 ## Two Different Approaches for building Next JS
 
@@ -89,4 +90,20 @@ export const metadata = {
     description : "Our First Next App"
 }
 ```
-metadata here is a reserved keyword and it takes an object as input.
+`metadata` here is a reserved keyword and it takes an object as input.
+
+---
+
+### Components
+
+- You can absolutely pack up reusable things into one component and reuse them later as done in react.
+- Here also, you can make a component folder, as your wish within the `app/` folder or outside, and place your reusable components there.
+- To use them, you can simply 
+```
+    import Header from '@/components/header'
+```
+
+notice we are using `@` here, which denotes the home directory (by default configured by `tsconfig.json` in case you chose `TypeScript` while setting up the project), you can always go for `../` 
+
+---
+
