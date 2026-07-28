@@ -120,3 +120,34 @@ These filenames are only reserved when creating them inside of the app/ folder (
 - `route.tsx` : Allows you to create an API route (i.e., a page which does NOT return JSX code but instead data, e.g., in the JSON format)
 
 ---
+
+### Importing Images from a Folder
+
+In next you can import a image, but as an `object`
+
+```
+    import logo from ../assets/logo
+
+    ...rest of the code
+
+        <img src = {logo} alt = "An Image">
+    
+    ...rest of the code
+```
+
+this won't work because by default next has converted the image into object which somewhat will look like this
+
+![img-object-data](image.png)
+
+So, to use the image, we can use the `src` key like : 
+```
+    import logo from ../assets/logo
+
+    ...rest of the code
+
+        <img src = {logo.src} alt = "An Image">
+    
+    ...rest of the code
+```
+
+and you can use the images as you want
