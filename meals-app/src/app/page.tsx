@@ -1,14 +1,14 @@
 import Link from 'next/link';
 
 import classes from "./page.module.css"
-
+import ImageSlideshow from '@/components/images/image-slideshow';
 
 export default function Home() {
   return (
     <>
       <header className={classes.header}>
         <div className={classes.slideshow}>
-
+          <ImageSlideshow/>
         </div>
         <div>
           <div className={classes.hero}>
@@ -32,7 +32,8 @@ export default function Home() {
           </h2>
           <p>
             Next Level Food is a platform for foodies to share their favorite recipes with the world. It&apos;s a place to discover new dishes and connect with other food lovers.
-          </p>          <p>
+          </p>          
+          <p>
             NextLevel Food is a place to discover new dishes, and to connect
             with other food lovers.
           </p>
