@@ -1,5 +1,6 @@
 import Link from "next/link"
 import classes from "./page.module.css"
+import MealsGrid from "./meals-grid"
 
 export default function MealsPage() {
     return (
@@ -19,7 +20,7 @@ export default function MealsPage() {
                 </p>
             </header>
             <main className={classes.main}>
-                
+                <MealsGrid meals = {[]}/>
             </main>
         </>
     )
