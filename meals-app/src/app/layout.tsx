@@ -1,14 +1,15 @@
+import MainHeader from '@/components/main-header';
 import './globals.css';
 import { Metadata } from 'next';
 import { ReactNode } from 'react';
 
 
-export const metadata : Metadata = {
+export const metadata: Metadata = {
   title: 'NextLevel Food',
   description: 'Delicious meals, shared by a food-loving community.',
 };
 
-export default function RootLayout({ children } : {children : ReactNode}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
@@ -32,7 +33,7 @@ export default function RootLayout({ children } : {children : ReactNode}) {
             ></path>
           </svg>
         </div>
-
+        <MainHeader />
         {children}
       </body>
     </html>
