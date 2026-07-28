@@ -141,13 +141,32 @@ this won't work because by default next has converted the image into object whic
 
 So, to use the image, we can use the `src` key like : 
 ```
-    import logo from ../assets/logo
+import logo from '../assets/logo'
 
     ...rest of the code
 
-        <img src = {logo.src} alt = "An Image">
+        <img src = {logo.src} alt = "An Image"/>
     
     ...rest of the code
 ```
 
-and you can use the images as you want
+and you can use the images as you want.
+
+This was however a general case where we are simply using the `<img/>` tag, but the efficient way is by using the `<Image>` tag provided by NextJS itself, which further adds useful properties to the image, like lazy loading, prefetched height and width, and providing the best quality depending on the web-browser and the viewport.
+
+You can import the `<Image>` tag from `next/Image`
+
+```
+import Image from 'next/Image'
+
+import logo from '../assets/logo'
+
+...rest of the code
+
+    <Image src = {logo} alt = "An Image"/>
+
+...rest of the code
+```
+
+Did you notice one thing? Now we are directly passing `logo` instead of `logo.src` because now the object includes useful information about the image, like height-width and many more. It will configure the image route on its own.
+
