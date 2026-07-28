@@ -17,7 +17,7 @@
     `npx create-next-app@latest`
 - navigate to the project you just made, and to start the project use `npm run dev`
 
-![alt text](images/image.png)[this is the expected new Website]
+![alt text](images/landing-page.png)[this is the expected new Website]
 
 ---
 ## Two Different Approaches for building Next JS
@@ -137,7 +137,7 @@ In next you can import a image, but as an `object`
 
 this won't work because by default next has converted the image into object which somewhat will look like this
 
-![img-object-data](image.png)
+![img-object-data](images/img-data.png)
 
 So, to use the image, we can use the `src` key like : 
 ```
