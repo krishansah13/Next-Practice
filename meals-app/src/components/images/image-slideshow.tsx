@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 import images from "./image.data";
 import Image from "next/image";
+import classes from "./image-slideshow.module.css"
 
 export default function ImageSlideshow() {
 
@@ -11,14 +12,12 @@ export default function ImageSlideshow() {
     useEffect(() => {
         const timer = setTimeout(() => {
             setCurrentImage((prev) => (prev + 1) % images.length);
-            return ()=> clearTimeout(timer);
         }, 5000);
-
-        return () => clearInterval(timer);
-    }, []);
+        return () => clearTimeout(timer);
+    }, [currentImage]);
     return (
         <div>
-            <Image src ={images[currentImage].image} alt = {images[currentImage].alt} height={400} width = {400} className="border-amber-200 rounded-2xl"/>
+            <Image className={classes.image} key = {currentImage} src={images[currentImage].image} alt={images[currentImage].alt} height={400} width={400} />
         </div>
     )
 }
