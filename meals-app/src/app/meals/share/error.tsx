@@ -3,10 +3,10 @@ export default function Error() {
     return (
         <main className="error">
             <h1>
-                An Error Occured
+                Unfortunately, there's an error!
             </h1>
             <p>
-                Failed Loading the Data
+                The meal recipe couldn't be shared !
             </p>
         </main>
     )
