@@ -3,8 +3,16 @@ import { Suspense } from "react"
 
 import classes from "./page.module.css"
 import MealsGrid from "../../components/meals/meals-grid"
-import getMeals from "@/lib/meals"
+import getMeals, { getMeal } from "@/lib/meals"
 
+type Props = {
+    params: Promise<{ mealSlug: string }>;
+};
+
+export const metadata = {
+  title: "All Meals",
+  description: "Browse delicious meals shared by our community.",
+};
 
 
 async function Meals() {

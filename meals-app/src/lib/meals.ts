@@ -6,18 +6,31 @@ import xss from "xss";
 
 const db = sql("meals.db");
 
+type Meal = {
+  id: number;
+  title: string;
+  slug: string;
+  summary: string;
+  instructions: string;
+  image: string;
+  creator: string;
+  creator_email: string;
+};
+
 export default async function getMeals() {
   await new Promise((resolve) => setTimeout(resolve, 2000));
   return db.prepare("SELECT * FROM meals").all();
 }
 
-export function getMeal(slug: string) {
-  return db.prepare("SELECT * from meals where slug = ?").get(slug);
+export function getMeal(slug: string): Meal | undefined {
+  return db
+    .prepare("SELECT * FROM meals WHERE slug = ?")
+    .get(slug) as Meal | undefined;
 }
 
 export async function saveMeal(meal: {
   title: string;
-  slug : string;
+  slug: string;
   instructions: string;
   image: File;
   summary: string;
