@@ -1,7 +1,3 @@
-import path from "path";
-
-console.log("INIT DB PATH:", path.join(process.cwd(), "meals.db"));
-
 const sql = require("better-sqlite3");
 const db = sql("meals.db");
 
