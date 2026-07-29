@@ -1,6 +1,12 @@
 import sql from "better-sqlite3";
-const db = sql("meals.db");
+import path from "path";
 
-export default function getMeals() {
-    return db.prepare('SELECT * FROM meals').all();
+const dbPath = path.join(process.cwd(), "meals.db");
+console.log("DB PATH:", dbPath);
+
+const db = sql(dbPath);
+
+export default async function getMeals() {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+  return db.prepare("SELECT * FROM meals").all();
 }
