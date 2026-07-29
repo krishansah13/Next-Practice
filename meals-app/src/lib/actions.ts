@@ -7,7 +7,7 @@ function isInvalidText(text: string) {
   return !text || text.trim() === "";
 }
 
-export default async function FormAction(formData: FormData) {
+export default async function FormAction(prevState : {message : string},formData: FormData) {
   const meal = {
     title: formData.get("title") as string,
     summary: formData.get("summary") as string,
@@ -23,11 +23,15 @@ export default async function FormAction(formData: FormData) {
     isInvalidText(meal.instructions) ||
     isInvalidText(meal.creator) ||
     isInvalidText(meal.creator_email) ||
-    !meal.creator_email.includes('@') ||
-    !meal.image || meal.image.size === 0
+    !meal.creator_email.includes("@") ||
+    !meal.image ||
+    meal.image.size === 0
   ) {
-    throw new Error('Invalid Input');
+    return { 
+      message : "error hai bhai"
+    }
   }
+  
   await saveMeal(meal);
   redirect("/meals");
 }
