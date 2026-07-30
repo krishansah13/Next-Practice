@@ -47,6 +47,23 @@ Step 02: Make a `page.js` file inside the folder
 
 Step 03: Write the desired output of the `/about` route in page.js
 
+But now since this is the case, and if we want nested routes, what do you think will happen?
+
+```
+|-about
+    |- company
+        |- legacy
+```
+
+if that's limited to 2-3, its manageable, but if that's more than that, management becomes hectic and debugging becomes even more hard.
+
+Take an example where you have to implement `Features`,and there are say `5 features`, and also each feature comprises of `5 more concepts` within it, how would you manage? Not by creating nested routes ofcourse.
+
+To solve this problem, Next provides us with the concept of `Dynamic Routing`, in which if you are inside a folder say `features`, and concepts keep changing, so instead of making `n` number of concepts, you will make just one `[slug]` folder in there, and place your `page.tsx` in there, which would be common for all the concepts coming in the form of `http://localhost:3000/features/concepts1`. You can ofcourse change the output on the screen based on the `params` passed into the `[slug]`. 
+
+In case you are dealing with super nested routes, you can create `[...slug]` folder, which in turn will receive the url present in the form of an array in  `params`, and then based on that `params`, you can decide the output
+
+
 
 ### Navigation 
 - For Navigation, you can always use `<a></a>` tags, but it is not preferrable as it breaks the purpose of `SPA` by refreshing and loading a whole new page. 
