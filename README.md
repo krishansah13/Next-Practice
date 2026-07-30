@@ -187,3 +187,17 @@ import logo from '../assets/logo'
 
 Did you notice one thing? Now we are directly passing `logo` instead of `logo.src` because now the object includes useful information about the image, like height-width and many more. It will configure the image route on its own.
 
+---
+
+### Private Folders
+
+There might be some folders which you want not be routed, as all the folders inside the `app/` directory indicates a new route. 
+
+You can achieve that by adding `_`ahead of the folder you want to make private , for example say `_lib`. 
+
+Private folders are super useful for a bunch of things : 
+- Keeping your UI logic separate from routing logc
+- Havinga consistent way to organize internal files in your project
+- Making it easier to group related files in your code editor
+- Avoiding potential naming conflicts with the future Next.js file naming conventions.
+
