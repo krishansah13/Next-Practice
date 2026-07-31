@@ -14,11 +14,24 @@ const FileUpload = ({ onSuccess, onProgress, fileType }: FileUploadProps) => {
     const [error, setError] = useState<string | null>(null);
 
     const validateFile = (file: File) => {
-        if (fileType === "video") {
-            if (!file.type.startsWith("video/")) {
-                setError("Please Upload a Valid Video File")
+        const validateFile = (file: File) => {
+            if (fileType === "video" && !file.type.startsWith("video/")) {
+                setError("Please upload a valid video file.");
+                return false;
             }
-        }
+
+            if (fileType === "image" && !file.type.startsWith("image/")) {
+                setError("Please upload a valid image file.");
+                return false;
+            }
+
+            if (file.size > 100 * 1024 * 1024) {
+                setError("File size must be less than 100 MB.");
+                return false;
+            }
+
+            return true;
+        };
         if (file.size > 100 * 1024 * 1024) {
             setError("File Size must be less than 100 MB");
         }
@@ -35,8 +48,12 @@ const FileUpload = ({ onSuccess, onProgress, fileType }: FileUploadProps) => {
 
         try {
             const authRes = await fetch('/api/auth/imagekit-auth');
-            const auth = authRes.json();
 
+            if (!authRes.ok) {
+                throw new Error("Failed to get ImageKit authentication.");
+            }
+
+            const auth = await authRes.json();
             const res = await upload({
                 expire: auth.expire,
                 token: auth.token,
@@ -52,9 +69,21 @@ const FileUpload = ({ onSuccess, onProgress, fileType }: FileUploadProps) => {
                 }
             })
             onSuccess(res);
-        } catch (error :any) {
-            console.error(error.message)
-        }finally{
+        } catch (error) {
+            if (error instanceof ImageKitAbortError) {
+                setError("Upload aborted.");
+            } else if (error instanceof ImageKitInvalidRequestError) {
+                setError("Invalid upload request.");
+            } else if (error instanceof ImageKitUploadNetworkError) {
+                setError("Network error during upload.");
+            } else if (error instanceof ImageKitServerError) {
+                setError("ImageKit server error.");
+            } else if (error instanceof Error) {
+                setError(error.message);
+            } else {
+                setError("Something went wrong.");
+            }
+        } finally {
             setUploading(false);
         }
     }
@@ -63,6 +92,7 @@ const FileUpload = ({ onSuccess, onProgress, fileType }: FileUploadProps) => {
         <>
             <input type="file" accept={fileType === "video" ? "video/*" : "image/*"} onChange={handleFileChange} />
             {uploading && <span>Loading....</span>}
+            {error && <p className="text-red-500">{error}</p>}
         </>
     );
 };
