@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
         error: "User registration failed",
       },
       {
-        status: 400,
+        status: 500,
       },
     );
   }
