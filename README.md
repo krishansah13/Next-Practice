@@ -201,3 +201,7 @@ Private folders are super useful for a bunch of things :
 - Making it easier to group related files in your code editor
 - Avoiding potential naming conflicts with the future Next.js file naming conventions.
 
+---
+### Route Groups
+
+There might be a case where you want to group some routes together but do not want an extra route name in your url, so that can be achieved via grouping all of them within a folder enclosed withing `()`
