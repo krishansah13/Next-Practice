@@ -1,6 +1,7 @@
 "use client"
+
 import { ImageKitAbortError, ImageKitInvalidRequestError, ImageKitServerError, ImageKitUploadNetworkError, upload, } from "@imagekit/next";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 interface FileUploadProps {
     onSuccess: (res: any) => void
@@ -10,33 +11,29 @@ interface FileUploadProps {
 
 const FileUpload = ({ onSuccess, onProgress, fileType }: FileUploadProps) => {
 
+    const [loader, setLoader] = useState(0);
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
+
     const validateFile = (file: File) => {
-        const validateFile = (file: File) => {
-            if (fileType === "video" && !file.type.startsWith("video/")) {
-                setError("Please upload a valid video file.");
-                return false;
-            }
-
-            if (fileType === "image" && !file.type.startsWith("image/")) {
-                setError("Please upload a valid image file.");
-                return false;
-            }
-
-            if (file.size > 100 * 1024 * 1024) {
-                setError("File size must be less than 100 MB.");
-                return false;
-            }
-
-            return true;
-        };
-        if (file.size > 100 * 1024 * 1024) {
-            setError("File Size must be less than 100 MB");
+        if (fileType === "video" && !file.type.startsWith("video/")) {
+            setError("Please upload a valid video file.");
+            return false;
         }
+
+        if (fileType === "image" && !file.type.startsWith("image/")) {
+            setError("Please upload a valid image file.");
+            return false;
+        }
+
+        if (file.size > 100 * 1024 * 1024) {
+            setError("File size must be less than 100 MB.");
+            return false;
+        }
+
         return true;
-    }
+    };
 
     const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0]
@@ -45,30 +42,47 @@ const FileUpload = ({ onSuccess, onProgress, fileType }: FileUploadProps) => {
 
         setUploading(true)
         setError(null)
+        onProgress: (event: any) => {
+            if (event.lengthComputable) {
+                const percent = (event.loaded / event.total) * 100;
+                const progress = Math.round(percent);
+
+                setLoader(progress);
+                onProgress(progress);
+            }
+        }
 
         try {
-            const authRes = await fetch('/api/auth/imagekit-auth');
+            const authRes = await fetch('/api/imagekit');
 
             if (!authRes.ok) {
                 throw new Error("Failed to get ImageKit authentication.");
             }
 
             const auth = await authRes.json();
+
             const res = await upload({
                 expire: auth.expire,
                 token: auth.token,
                 signature: auth.signature,
-                publicKey: process.env.NEXT_PUBLIC_PUBLIC_KEY!,
+                publicKey: auth.publicKey,
                 file,
                 fileName: file.name,
+
                 onProgress: (event) => {
-                    if (event.lengthComputable && onProgress) {
-                        const percent = (event.loaded / event.total) * 100;
-                        onProgress(Math.round(percent));
+                    if (event.lengthComputable) {
+                        const percent = Math.round(
+                            (event.loaded / event.total) * 100
+                        );
+
+                        setLoader(percent);
+                        onProgress(percent);
                     }
                 }
-            })
+            });
+
             onSuccess(res);
+
         } catch (error) {
             if (error instanceof ImageKitAbortError) {
                 setError("Upload aborted.");
@@ -85,16 +99,33 @@ const FileUpload = ({ onSuccess, onProgress, fileType }: FileUploadProps) => {
             }
         } finally {
             setUploading(false);
+            setLoader(0);
         }
     }
-
     return (
         <>
-            <input type="file" accept={fileType === "video" ? "video/*" : "image/*"} onChange={handleFileChange} />
-            {uploading && <span>Loading....</span>}
+            <input
+                type="file"
+                accept={fileType === "video" ? "video/*" : "image/*"}
+                onChange={handleFileChange}
+                className="
+                        text-gray-200
+                        file:bg-violet-600
+                        file:text-white
+                        file:border-0
+                        file:rounded-full
+                        file:px-5
+                        file:py-2
+                        file:font-semibold
+                        file:cursor-pointer
+                        hover:file:bg-violet-500
+                        transition-all
+                        "/>
+            {loader !== 100 && uploading && <span>{loader}% uploaded</span>}
+            {loader === 100 && <span>Uploading..</span>}
             {error && <p className="text-red-500">{error}</p>}
         </>
     );
-};
+}
 
 export default FileUpload;
